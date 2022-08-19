@@ -107,7 +107,7 @@ const createMarkup = img => `
               <b>Downloads<br>${img.downloads}</b>
               </p>
         </div>
-    </div>oa
+    </div>
 `; 
 
 
