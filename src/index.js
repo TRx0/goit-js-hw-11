@@ -75,7 +75,7 @@ e.preventDefault()
 function onLoadMoreBtn(){
     if (currentPage > totalPages) {
         refs.loadButton.classList.add('invisible');
-        return AlertPopup()
+        return toggleAlertPopup()
     }
 
     nameSearch = refs.input.value;
@@ -127,7 +127,7 @@ function insertMarkup(arrayImages) {
 };
 
 
-function AlertPopup() {
+function toggleAlertPopup() {
     if (isAlertVisible) {
       return;
     }
