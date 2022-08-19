@@ -136,5 +136,5 @@ function toggleAlertPopup() {
     setTimeout(() => {
       refs.alert.classList.remove("is-visible");
       isAlertVisible = false;
-    }, 3000);
+    }, 2000);
 };
