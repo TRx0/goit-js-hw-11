@@ -51,10 +51,11 @@ async function fetchImages() {
     
 function onFormSubmit(e) {    
 e.preventDefault()
-
+    currentPage = 1;
   refs.gallery.innerHTML = '';
   nameSearch = refs.input.value;
   nameSearch;
+  
   refs.loadButton.classList.add('invisible')
 
   fetchImages() 
@@ -62,7 +63,7 @@ e.preventDefault()
       insertMarkup(images);
       currentPage += 1;
     }).catch(error => (console.log(error)))
-
+    
  
     lightbox = new SimpleLightbox('.gallery a', {
         captionsData: 'alt',
@@ -73,11 +74,11 @@ e.preventDefault()
 
 
 function onLoadMoreBtn(){
-    if (currentPage > totalPages) {
-        refs.loadButton.classList.add('invisible');
-        return toggleAlertPopup()
+    if (totalPages <= currentPage) {
+    refs.loadButton.classList.add('invisible');
+      return toggleAlertPopup;
     }
-
+    
     nameSearch = refs.input.value;
 
     fetchImages() 
@@ -138,3 +139,4 @@ function toggleAlertPopup() {
       isAlertVisible = false;
     }, 2000);
 };
+const lastRender = totalPages - currentPage * perPage < totalPages % perPage;
