@@ -33,12 +33,16 @@ async function fetchImages() {
     try {
         const response = await axios.get(`${BASE_URL}?key=29309322-ee9bc20eed6bcd222e62c0560&image_type=photo&orientation=horizontal&safesearch=true&q=${nameSearch}&page=${currentPage}&per_page=${perPage}`);
          const arrayImages = await response.data.hits;
-
-        if(arrayImages.length === 0) {
+       
+         if(arrayImages.length === 0) {
             Notiflix.Notify.warning(
             "Sorry, there are no images matching your search query. Please try again.")
-        } else if(arrayImages.length !== 0) {
+        } if (arrayImages.length !== 0) {
             refs.loadButton.classList.remove('invisible')
+            refs.loadButton.classList.remove('none');
+        } if(currentPage === Math.ceil(response.data.totalHits / 40)){
+            toggleAlertPopup()
+            refs.loadButton.classList.add('none');
         }
         return {arrayImages,
             totalHits: response.data.totalHits,}       
@@ -56,7 +60,7 @@ e.preventDefault()
   nameSearch = refs.input.value;
   nameSearch;
   
-  refs.loadButton.classList.add('invisible')
+//   refs.loadButton.classList.add('invisible')
 
   fetchImages() 
     .then(images => {
@@ -73,11 +77,12 @@ e.preventDefault()
 }
 
 
+
 function onLoadMoreBtn(){
-    if (totalPages <= currentPage) {
-    refs.loadButton.classList.add('invisible');
-      return toggleAlertPopup;
-    }
+    // if (totalPages <= currentPage) {
+    // refs.loadButton.classList.add('invisible');
+    // toggleAlertPopup();
+    // }
     
     nameSearch = refs.input.value;
 
@@ -139,4 +144,3 @@ function toggleAlertPopup() {
       isAlertVisible = false;
     }, 2000);
 };
-const lastRender = totalPages - currentPage * perPage < totalPages % perPage;
